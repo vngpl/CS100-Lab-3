@@ -16,7 +16,7 @@ int main() {
     theList.printLineage("Betty");
 
     return 0;
-} 
+}
 
 /* Output (your revised solution should give the same output)
 Ancestors of Jim

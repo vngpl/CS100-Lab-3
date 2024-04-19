@@ -5,42 +5,43 @@
 using std::cout;
 using std::endl;
 
-PersonList::PersonList(){
+PersonList::PersonList() {
     capacity = 2;
     numPeople = 0;
     theList = new Person*[capacity];
 }
 
-PersonList::~PersonList(){
+PersonList::~PersonList() {
     for (int i = 0; i < numPeople; ++i) {
         delete theList[i];
-        theList[i] = nullptr;
     }
-    delete [] theList;
+    delete[] theList;
 }
 
-void PersonList::addPerson(const char* child_name, const char* father_name, const char* mother_name){
+void PersonList::addPerson(const char* child_name, const char* father_name, const char* mother_name) {
     Person *father = nullptr;
     Person *mother = nullptr;
 
     // try to find the three names in the theList
-    for(int i = 0; i < numPeople; i++){
-        if(!strcmp(theList[i]->getName(), child_name)){
+    for(int i = 0; i < numPeople; i++) {
+        if (!strcmp(theList[i]->getName(), child_name)) {
             cout << "ERROR: " << child_name << " already has parents!!!";
             return;
-        } else if(!strcmp(theList[i]->getName(), father_name)) {
+        }
+        else if (!strcmp(theList[i]->getName(), father_name)) {
             father = theList[i];
-        } else if(!strcmp(theList[i]->getName(), mother_name)) {
+        }
+        else if (!strcmp(theList[i]->getName(), mother_name)) {
             mother = theList[i];
         }
     }
 
-    if(father == nullptr){
+    if (father == nullptr) {
       // father_name is not in the theList so create a new person
       father = new Person(father_name, nullptr, nullptr);
       insertIntoList(father);
     }
-    if(mother == nullptr){
+    if (mother == nullptr) {
       // mother_name is not in the theList so create a new person
       mother = new Person(mother_name, nullptr, nullptr);
       insertIntoList(mother);
@@ -51,15 +52,15 @@ void PersonList::addPerson(const char* child_name, const char* father_name, cons
     mother->addChild(newChild);
 }
 
-void PersonList::insertIntoList(Person *newPerson){
-    if(numPeople == capacity) expand(&theList, &capacity);
+void PersonList::insertIntoList(Person *newPerson) {
+    if (numPeople == capacity) expand(&theList, &capacity);
 
     theList[numPeople++] = newPerson;
 }
 
-void PersonList::printLineage(const char* person){
-    for(int i = 0; i < numPeople; i++) {
-        if(!strcmp(theList[i]->getName(), person)){
+void PersonList::printLineage(const char* person) {
+    for (int i = 0; i < numPeople; i++) {
+        if (!strcmp(theList[i]->getName(), person)) {
             theList[i]->printAncestors();
             theList[i]->printDecendents();
             return;
