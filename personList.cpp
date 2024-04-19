@@ -12,7 +12,7 @@ PersonList::PersonList(){
 }
 
 PersonList::~PersonList(){
-    for (int i = 0; i < /* FIX */; ++i) {
+    for (int i = 0; i < numPeople; ++i) {
         delete theList[i];
         theList[i] = nullptr;
     }
@@ -22,7 +22,7 @@ PersonList::~PersonList(){
 void PersonList::addPerson(const char* child_name, const char* father_name, const char* mother_name){
     Person *father = nullptr;
     Person *mother = nullptr;
-    
+
     // try to find the three names in the theList
     for(int i = 0; i < numPeople; i++){
         if(!strcmp(theList[i]->getName(), child_name)){
@@ -34,7 +34,7 @@ void PersonList::addPerson(const char* child_name, const char* father_name, cons
             mother = theList[i];
         }
     }
-   
+
     if(father == nullptr){
       // father_name is not in the theList so create a new person
       father = new Person(father_name, nullptr, nullptr);
